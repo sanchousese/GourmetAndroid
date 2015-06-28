@@ -12,9 +12,13 @@ import com.google.android.gms.maps.model.LatLngBounds;
  */
 public class MapChangeListener implements GoogleMap.OnCameraChangeListener {
 
-    public static final String TAG = "MapChangeListener";
+    private static final String TAG = "MapChangeListener";
 
     private MapHelper mapHelper;
+
+    private static final long TIME_TO_WAIT = 2000L;
+
+    private long lastRequestTime;
 
     public MapChangeListener(MapHelper mapHelper) {
         this.mapHelper = mapHelper;
@@ -22,6 +26,14 @@ public class MapChangeListener implements GoogleMap.OnCameraChangeListener {
 
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
+
+        if (System.currentTimeMillis() - lastRequestTime <= TIME_TO_WAIT) {
+            return;
+        }
+
+        lastRequestTime = System.currentTimeMillis();
+
+        Log.d(TAG, "Need to update info!");
         mapHelper.updateInfo();
     }
 

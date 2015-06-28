@@ -65,4 +65,12 @@ public class Photo {
         this.original = original;
     }
 
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "thumb='" + thumb + '\'' +
+                ", normal='" + normal + '\'' +
+                ", original='" + original + '\'' +
+                '}';
+    }
 }

@@ -38,4 +38,11 @@ public class Response {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Response{" +
+                "restaurants=" + restaurants +
+                '}';
+    }
+
 }

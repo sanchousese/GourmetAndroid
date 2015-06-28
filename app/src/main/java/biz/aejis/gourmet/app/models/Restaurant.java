@@ -199,6 +199,27 @@ public class Restaurant {
         this.latitude = latitude;
     }
 
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", index='" + index + '\'' +
+                ", street='" + street + '\'' +
+                ", popularity=" + popularity +
+                ", rating=" + rating +
+                ", phone='" + phone + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", atmosfereIds=" + atmosfereIds +
+                ", averagesum=" + averagesum +
+                ", photos=" + photos +
+                ", worktime='" + worktime + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
     /**
      *
      * @return

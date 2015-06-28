@@ -1,7 +1,11 @@
 package biz.aejis.gourmet.app.helpers;
 
 import android.util.Log;
+import biz.aejis.gourmet.app.GourmetApplication;
+import biz.aejis.gourmet.app.api.ApiClient;
 import biz.aejis.gourmet.app.listeners.MapChangeListener;
+import biz.aejis.gourmet.app.models.Restaurant;
+import biz.aejis.gourmet.app.presenters.Updater;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -16,12 +20,17 @@ import java.util.List;
  */
 public class MapHelper {
 
+    public static final String TAG = "MapHelper";
+
     private GoogleMap map;
+
     private List<Marker> markers = new ArrayList<Marker>();
+
     private LatLng northwestPoint, southeastPoint;
+
     private static MapHelper instance;
 
-    public static final String TAG = "MapHelper";
+    private Updater updater;
 
     private MapHelper() {}
 
@@ -33,14 +42,13 @@ public class MapHelper {
         return instance;
     }
 
-    private void updateBounds() {
-        LatLngBounds bounds = map.getProjection().getVisibleRegion().latLngBounds;
-        northwestPoint = new LatLng(bounds.northeast.latitude, bounds.southwest.longitude);
-        southeastPoint = new LatLng(bounds.southwest.latitude, bounds.northeast.longitude);
+    public void setUpMap(GoogleMap map, Updater updater) {
+        this.map = map;
+        this.updater = updater;
+        initializeMap(map);
     }
 
-    public void setUpMap(GoogleMap map) {
-        this.map = map;
+    private void initializeMap(GoogleMap map) {
         map.setMyLocationEnabled(true);
         map.setOnCameraChangeListener(new MapChangeListener(this));
         Log.d(TAG, "Map has been initialized");
@@ -56,10 +64,20 @@ public class MapHelper {
     public void clearMap() {
         map.clear();
         markers = new ArrayList<Marker>();
+        Log.d(TAG, "All markers have been deleted");
     }
 
     public void updateInfo() {
         updateBounds();
+
+        updater.updateInfo();
+    }
+
+    private void updateBounds() {
+        LatLngBounds bounds = map.getProjection().getVisibleRegion().latLngBounds;
+        northwestPoint = new LatLng(bounds.northeast.latitude, bounds.southwest.longitude);
+        southeastPoint = new LatLng(bounds.southwest.latitude, bounds.northeast.longitude);
+        Log.d(TAG, "Bounds was updated " + northwestPoint + southeastPoint);
     }
 
     public LatLng getNorthwestPoint() {
@@ -70,4 +88,17 @@ public class MapHelper {
         return southeastPoint;
     }
 
+    public void redraw() {
+
+        clearMap();
+
+        List<Restaurant> restaurants = GourmetApplication.getInstance().getLatestResponse().getRestaurants();
+
+        int restaurantsSize = restaurants.size();
+
+        for (int i = 0; i < restaurantsSize; i++) {
+            Restaurant restaurant = restaurants.get(i);
+            setMarker(restaurant.getLatitude(), restaurant.getLongitude(), restaurant.getName());
+        }
+    }
 }
