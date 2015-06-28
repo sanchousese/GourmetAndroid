@@ -11,6 +11,8 @@ public class GourmetApplication extends Application {
 
     private static final String TAG = "GourmetApplication";
 
+    public static final long DELAY_TIME = 200;
+
     private Response latestResponse;
 
     private static GourmetApplication instance;

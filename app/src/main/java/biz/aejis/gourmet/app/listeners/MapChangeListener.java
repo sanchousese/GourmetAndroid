@@ -1,11 +1,12 @@
 package biz.aejis.gourmet.app.listeners;
 
+import android.os.Handler;
 import android.util.Log;
+import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.helpers.MapHelper;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
+
 
 /**
  * Created by Sutula on 27.06.15.
@@ -16,9 +17,15 @@ public class MapChangeListener implements GoogleMap.OnCameraChangeListener {
 
     private MapHelper mapHelper;
 
-    private static final long TIME_TO_WAIT = 2000L;
+    private final Runnable updater = new Runnable() {
+        @Override
+        public void run() {
+            Log.d(TAG, "Need to update info!");
+            mapHelper.updateInfo();
+        }
+    };
 
-    private long lastRequestTime;
+    private final Handler timeoutHandler = new Handler();
 
     public MapChangeListener(MapHelper mapHelper) {
         this.mapHelper = mapHelper;
@@ -26,15 +33,8 @@ public class MapChangeListener implements GoogleMap.OnCameraChangeListener {
 
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
-
-        if (System.currentTimeMillis() - lastRequestTime <= TIME_TO_WAIT) {
-            return;
-        }
-
-        lastRequestTime = System.currentTimeMillis();
-
-        Log.d(TAG, "Need to update info!");
-        mapHelper.updateInfo();
+        timeoutHandler.removeCallbacks(updater);
+        timeoutHandler.postDelayed(updater, GourmetApplication.DELAY_TIME);
     }
 
 
