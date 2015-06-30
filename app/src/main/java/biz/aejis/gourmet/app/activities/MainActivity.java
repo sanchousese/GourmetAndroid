@@ -4,9 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.adapters.MainViewPagerAdapter;
@@ -30,14 +33,17 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     ViewPager pager;
     MainViewPagerAdapter adapter;
 
+    @InjectView(R.id.title) TextView title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
         tabHost = (MaterialTabHost) this.findViewById(R.id.tabHost);
-        pager = (ViewPager) this.findViewById(R.id.pager );
+        pager = (ViewPager) this.findViewById(R.id.pager);
 
         adapter = new MainViewPagerAdapter(getSupportFragmentManager(), this);
         pager.setAdapter(adapter);
@@ -46,6 +52,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
             @Override
             public void onPageSelected(int position) {
                 tabHost.setSelectedNavigationItem(position);
+                title.setText(adapter.getPageTitle(position));
             }
 
         });

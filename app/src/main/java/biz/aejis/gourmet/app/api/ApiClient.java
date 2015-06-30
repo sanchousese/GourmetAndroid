@@ -13,10 +13,12 @@ public class ApiClient {
 
     private static GourmetApiInterface gourmetService;
 
+    public static final String SITE_NAME = "http://gourmet.aejis.biz";
+
     public static GourmetApiInterface getGourmetApiClient() {
         if (gourmetService == null) {
             RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint("http://gourmet.aejis.biz")
+                    .setEndpoint(SITE_NAME)
                     .build();
             gourmetService = restAdapter.create(GourmetApiInterface.class);
         }

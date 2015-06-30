@@ -19,7 +19,6 @@ public class MapPageFragment extends Fragment {
 
     @InjectView(R.id.map) MapView mapView;
     @InjectView(R.id.progressBar) ProgressBar progressBar;
-    private MainView mainView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,14 +32,10 @@ public class MapPageFragment extends Fragment {
 
         MapsInitializer.initialize(getActivity());
 
-        mainView.setUpMap(mapView.getMap());
+        ((MainView) getActivity()).setUpMap(mapView.getMap());
 
         return view;
 
-    }
-
-    public void setMainView(MainView mainView) {
-        this.mainView = mainView;
     }
 
     @Override

@@ -2,7 +2,34 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Text" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Text.GreyText">
+        <item name="android:textColor">@color/text_grey</item>
+    </style>
+
+    <style name="Text.LittleText">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Text.LittleText.GreenText">
+        <item name="android:textColor">@color/text_green</item>
+    </style>
+
+    <style name="Text.LittleText.BlackText">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/blyudo</item>
+        <item name="android:minHeight">16dp</item>
+        <item name="android:maxHeight">16dp</item>
     </style>
 
 </resources>

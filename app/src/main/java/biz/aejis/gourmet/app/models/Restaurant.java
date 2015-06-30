@@ -117,7 +117,7 @@ public class Restaurant {
      * The street
      */
     public String getStreet() {
-        return street;
+        return street != null ? street : "";
     }
 
     /**

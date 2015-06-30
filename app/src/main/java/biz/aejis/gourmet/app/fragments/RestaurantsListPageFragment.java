@@ -22,7 +22,6 @@ public class RestaurantsListPageFragment extends Fragment {
     ListView restaurantList;
 
     private BaseAdapter adapter;
-    private MainView mainView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,9 +36,5 @@ public class RestaurantsListPageFragment extends Fragment {
 
     public void updateList() {
         adapter.notifyDataSetChanged();
-    }
-
-    public void setMainView(MainView mainView) {
-        this.mainView = mainView;
     }
 }

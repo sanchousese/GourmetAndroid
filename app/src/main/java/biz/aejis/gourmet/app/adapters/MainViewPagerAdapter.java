@@ -16,15 +16,12 @@ import com.google.android.gms.maps.GoogleMap;
  */
 public class MainViewPagerAdapter extends FragmentStatePagerAdapter implements ViewPageTransmitter {
 
-    private MainView mainView;
-
     private MapPageFragment mapPageFragment;
 
     private RestaurantsListPageFragment restaurantsListPageFragment;
 
     public MainViewPagerAdapter(FragmentManager fm, MainView mainView) {
         super(fm);
-        this.mainView = mainView;
     }
 
     @Override
@@ -32,12 +29,10 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter implements V
         switch (position) {
             case 0:
                 mapPageFragment = new MapPageFragment();
-                mapPageFragment.setMainView(mainView);
                 return mapPageFragment;
 
             case 1:
                 restaurantsListPageFragment = new RestaurantsListPageFragment();
-                restaurantsListPageFragment.setMainView(mainView);
                 return restaurantsListPageFragment;
             case 2:
                 return new RestaurantsListPageFragment();

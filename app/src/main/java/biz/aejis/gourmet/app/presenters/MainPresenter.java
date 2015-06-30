@@ -12,6 +12,8 @@ import com.google.android.gms.maps.model.LatLng;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 
+import java.util.Date;
+
 /**
  * Created by Sutula on 28.06.15.
  */
@@ -22,6 +24,8 @@ public class MainPresenter implements Updater {
     private MainView mainView;
 
     private MapHelper mapHelper;
+
+    private Date dateOfLastUpdate = new Date();
 
     public MainPresenter(MainView mainView) {
         this.mainView = mainView;
@@ -39,14 +43,20 @@ public class MainPresenter implements Updater {
 
         LatLng northwest = mapHelper.getNorthwestPoint();
         LatLng southeast = mapHelper.getSoutheastPoint();
+
+        final Date dateOfCurrentUpdate = new Date();
+
         ApiClient.getGourmetApiClient().getRestaurantsInSquare(northwest.latitude, northwest.longitude,
                 southeast.latitude, southeast.longitude, new Callback<Response>() {
                     @Override
                     public void success(Response response, retrofit.client.Response response2) {
                         Log.d(TAG, "ApiClient success, data: " + response);
-                        GourmetApplication.getInstance().setLatestResponse(response);
-                        updateViews();
-                        mainView.setProgressBarGone();
+                        if (dateOfCurrentUpdate.after(dateOfLastUpdate)){
+                            dateOfLastUpdate = dateOfCurrentUpdate;
+                            GourmetApplication.getInstance().setLatestResponse(response);
+                            updateViews();
+                            mainView.setProgressBarGone();
+                        }
                     }
 
                     @Override
