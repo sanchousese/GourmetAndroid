@@ -35,6 +35,8 @@ public class MainPresenter implements Updater {
     @Override
     public void updateInfo() {
 
+        mainView.setProgressBarVisible();
+
         LatLng northwest = mapHelper.getNorthwestPoint();
         LatLng southeast = mapHelper.getSoutheastPoint();
         ApiClient.getGourmetApiClient().getRestaurantsInSquare(northwest.latitude, northwest.longitude,
@@ -44,11 +46,13 @@ public class MainPresenter implements Updater {
                         Log.d(TAG, "ApiClient success, data: " + response);
                         GourmetApplication.getInstance().setLatestResponse(response);
                         updateViews();
+                        mainView.setProgressBarGone();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        mainView.showAlert(error.getMessage());
+                        mainView.showAlert("Network troubles!");
+                        mainView.setProgressBarGone();
                     }
                 });
 
@@ -56,5 +60,6 @@ public class MainPresenter implements Updater {
 
     private void updateViews() {
         mapHelper.redraw();
+        mainView.updateList();
     }
 }

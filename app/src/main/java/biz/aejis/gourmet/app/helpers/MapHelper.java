@@ -2,15 +2,13 @@ package biz.aejis.gourmet.app.helpers;
 
 import android.util.Log;
 import biz.aejis.gourmet.app.GourmetApplication;
+import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.api.ApiClient;
 import biz.aejis.gourmet.app.listeners.MapChangeListener;
 import biz.aejis.gourmet.app.models.Restaurant;
 import biz.aejis.gourmet.app.presenters.Updater;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,12 +49,17 @@ public class MapHelper {
     private void initializeMap(GoogleMap map) {
         map.setMyLocationEnabled(true);
         map.setOnCameraChangeListener(new MapChangeListener(this));
+        map.getUiSettings().setZoomControlsEnabled(true);
         Log.d(TAG, "Map has been initialized");
     }
 
     public void setMarker(double latitude, double longitude, String title) {
         LatLng position = new LatLng(latitude, longitude);
-        Marker marker = map.addMarker(new MarkerOptions().position(position).title(title));
+        Marker marker = map.addMarker(new MarkerOptions()
+                .position(position)
+                .title(title)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
+        );
         markers.add(marker);
         Log.d(TAG, "Marker on position: latitude: " + latitude + " longitude: " + longitude + " title: " + title);
     }

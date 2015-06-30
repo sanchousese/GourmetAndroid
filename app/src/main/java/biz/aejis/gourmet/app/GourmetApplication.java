@@ -3,6 +3,10 @@ package biz.aejis.gourmet.app;
 import android.app.Application;
 import android.util.Log;
 import biz.aejis.gourmet.app.models.Response;
+import biz.aejis.gourmet.app.models.Restaurant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sutula on 28.06.15.
@@ -11,11 +15,9 @@ public class GourmetApplication extends Application {
 
     private static final String TAG = "GourmetApplication";
 
-    public static final long DELAY_TIME = 200;
-
-    private Response latestResponse;
-
     private static GourmetApplication instance;
+
+    private Response latestResponse = new Response();
 
     public static GourmetApplication getInstance() {
         return instance;

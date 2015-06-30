@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId "biz.aejis.gourmet.app"
-        minSdkVersion 9
+        minSdkVersion 10
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -45,4 +45,5 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.google.code.gson:gson:2.3'
+    compile 'it.neokree:MaterialTabs:0.11'
 }

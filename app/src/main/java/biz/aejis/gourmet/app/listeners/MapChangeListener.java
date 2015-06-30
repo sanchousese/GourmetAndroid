@@ -15,6 +15,8 @@ public class MapChangeListener implements GoogleMap.OnCameraChangeListener {
 
     private static final String TAG = "MapChangeListener";
 
+    private static final long DELAY_TIME = 1000;
+
     private MapHelper mapHelper;
 
     private final Runnable updater = new Runnable() {
@@ -34,7 +36,7 @@ public class MapChangeListener implements GoogleMap.OnCameraChangeListener {
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
         timeoutHandler.removeCallbacks(updater);
-        timeoutHandler.postDelayed(updater, GourmetApplication.DELAY_TIME);
+        timeoutHandler.postDelayed(updater, DELAY_TIME);
     }
 
 
