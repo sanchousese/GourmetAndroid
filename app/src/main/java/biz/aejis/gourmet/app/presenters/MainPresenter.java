@@ -1,5 +1,6 @@
 package biz.aejis.gourmet.app.presenters;
 
+import android.location.Location;
 import android.util.Log;
 import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.activities.MainActivity;
@@ -66,6 +67,10 @@ public class MainPresenter implements Updater {
                     }
                 });
 
+    }
+
+    public void setPositionOn(Location location) {
+        mapHelper.setPositionOn(location);
     }
 
     private void updateViews() {

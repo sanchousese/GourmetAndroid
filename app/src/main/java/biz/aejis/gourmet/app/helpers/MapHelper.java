@@ -1,5 +1,9 @@
 package biz.aejis.gourmet.app.helpers;
 
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.util.Log;
 import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.R;
@@ -7,6 +11,7 @@ import biz.aejis.gourmet.app.api.ApiClient;
 import biz.aejis.gourmet.app.listeners.MapChangeListener;
 import biz.aejis.gourmet.app.models.Restaurant;
 import biz.aejis.gourmet.app.presenters.Updater;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.*;
 
@@ -102,6 +107,20 @@ public class MapHelper {
         for (int i = 0; i < restaurantsSize; i++) {
             Restaurant restaurant = restaurants.get(i);
             setMarker(restaurant.getLatitude(), restaurant.getLongitude(), restaurant.getName());
+        }
+    }
+
+    public void setPositionOn(Location location){
+        if (location != null) {
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(location.getLatitude(), location.getLongitude()), 13));
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
+                    .zoom(17)                   // Sets the zoom
+                    .build();                   // Creates a CameraPosition from the builder
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
         }
     }
 }

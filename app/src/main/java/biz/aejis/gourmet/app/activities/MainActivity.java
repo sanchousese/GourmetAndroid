@@ -1,37 +1,33 @@
 package biz.aejis.gourmet.app.activities;
 
-import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
-
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.View;
-import android.view.Window;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.adapters.MainViewPagerAdapter;
-import biz.aejis.gourmet.app.fragments.RestaurantsListPageFragment;
-import biz.aejis.gourmet.app.interfaces.ViewPageTransmitter;
 import biz.aejis.gourmet.app.presenters.MainPresenter;
 import biz.aejis.gourmet.app.views.MainView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 
-public class MainActivity extends ActionBarActivity implements MaterialTabListener, MainView {
+public class MainActivity extends ActionBarActivity implements MaterialTabListener, MainView,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private MainPresenter mainPresenter;
     MaterialTabHost tabHost;
     ViewPager pager;
     MainViewPagerAdapter adapter;
+    GoogleApiClient googleApiClient;
 
     @InjectView(R.id.title) TextView title;
 
@@ -60,6 +56,17 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         insertAllTabsFromPagerToTabHost();
 
         mainPresenter = new MainPresenter(this);
+
+        initializeGoogleApi();
+    }
+
+    private void initializeGoogleApi() {
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+        googleApiClient.connect();
     }
 
     private void insertAllTabsFromPagerToTabHost() {
@@ -112,5 +119,20 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     @Override
     public void onTabUnselected(MaterialTab materialTab) {
 
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+        mainPresenter.setPositionOn(location);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        showAlert("Проблемы с подключнием GoogleClientAPI");
     }
 }

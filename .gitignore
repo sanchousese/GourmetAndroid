@@ -1,4 +1,5 @@
-.gradle
+git remote add origin https://github.com/sanchousese/GourmetAndroid.git
+git push -u origin master.gradle
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
