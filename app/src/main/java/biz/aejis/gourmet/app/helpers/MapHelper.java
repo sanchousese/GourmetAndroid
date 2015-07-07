@@ -55,6 +55,13 @@ public class MapHelper {
         map.setMyLocationEnabled(true);
         map.setOnCameraChangeListener(new MapChangeListener(this));
         map.getUiSettings().setZoomControlsEnabled(true);
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                marker.showInfoWindow();
+                return true;
+            }
+        });
         Log.d(TAG, "Map has been initialized");
     }
 
