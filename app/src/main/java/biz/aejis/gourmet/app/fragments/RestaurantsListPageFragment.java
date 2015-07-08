@@ -1,13 +1,18 @@
 package biz.aejis.gourmet.app.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import biz.aejis.gourmet.app.R;
+import biz.aejis.gourmet.app.activities.MainActivity;
+import biz.aejis.gourmet.app.activities.RestaurantInfoActivity;
 import biz.aejis.gourmet.app.adapters.lists.RestaurantsListAdapter;
 import biz.aejis.gourmet.app.views.MainView;
 import butterknife.ButterKnife;
@@ -17,6 +22,8 @@ import butterknife.InjectView;
  * Created by Sutula on 29.06.15.
  */
 public class RestaurantsListPageFragment extends Fragment {
+
+    private static final String TAG = "RestaurantsListFragment";
 
     @InjectView(R.id.restaurantList)
     ListView restaurantList;

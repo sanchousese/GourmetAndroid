@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="sand" type="color">#FFFAF6D4</item>
+    <item name="dark_sand" type="color">#FFFFECCE</item>
     <item name="red" type="color">#FFE93933</item>
-    <item name="text_grey" type="color">#FF434241</item>
-    <item name="text_green" type="color">#FF45A483</item>
+    <item name="light_red" type="color">#ffe9585b</item>
+    <item name="grey" type="color">#FF434241</item>
+    <item name="green" type="color">#FF45A483</item>
+    <item name="light_green" type="color">#ff7bbaa3</item>
 </resources>

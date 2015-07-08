@@ -11,19 +11,69 @@
     </style>
 
     <style name="Text.GreyText">
-        <item name="android:textColor">@color/text_grey</item>
+        <item name="android:textColor">@color/grey</item>
     </style>
 
     <style name="Text.LittleText">
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="Text.LittleText.GreyText">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="Text.GreyText.BigText">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Text.MiddleText">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Text.MiddleText.GreyText">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="Text.MiddleText.GreyText.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Text.LittleText.GreenText">
-        <item name="android:textColor">@color/text_green</item>
+        <item name="android:textColor">@color/green</item>
     </style>
 
     <style name="Text.LittleText.BlackText">
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="TitleRestaurantBlock">
+        <item name="android:background">@color/dark_sand</item>
+    </style>
+
+    <style name="BodyRestaurantBlock">
+        <item name="android:background">@color/sand</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:padding">10dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+    </style>
+
+    <style name="Button.RedButton">
+        <item name="android:background">@drawable/red_button_selector</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <style name="Button.RedButton.WithMargin">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textSize">@dimen/button_text_size_margin</item>
+    </style>
+
+    <style name="Button.GreenButton">
+        <item name="android:background">@drawable/green_button_selector</item>
+        <item name="android:textColor">@color/green</item>
     </style>
 
     <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">

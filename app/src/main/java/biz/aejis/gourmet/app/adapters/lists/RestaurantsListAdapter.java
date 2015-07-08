@@ -2,6 +2,7 @@ package biz.aejis.gourmet.app.adapters.lists;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.*;
 import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.R;
+import biz.aejis.gourmet.app.activities.RestaurantInfoActivity;
 import biz.aejis.gourmet.app.api.ApiClient;
 import biz.aejis.gourmet.app.helpers.transformations.RoundedTransformation;
+import biz.aejis.gourmet.app.listeners.RestaurantItemClickListener;
 import biz.aejis.gourmet.app.models.Restaurant;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -66,10 +69,10 @@ public class RestaurantsListAdapter extends BaseAdapter {
             view.setTag(holder);
         }
 
-        Restaurant currRestaurant = (Restaurant) getItem(position);
+        final Restaurant currRestaurant = (Restaurant) getItem(position);
 
         holder.title.setText(currRestaurant.getName());
-        holder.street.setText(Html.fromHtml("<u>" + currRestaurant.getStreet() + "</u>"));
+        holder.street.setText(Html.fromHtml("<u>Av. " + currRestaurant.getStreet() + "</u>"));
 
         if(currRestaurant.getAveragesum() > 0)
             holder.averagePrice.setText("от " + currRestaurant.getAveragesum() + " €");
@@ -83,6 +86,8 @@ public class RestaurantsListAdapter extends BaseAdapter {
         if (currRestaurant.getPhotos().size() > 0) {
             loadCover(holder, currRestaurant.getPhotos().get(0).getThumb());
         }
+
+        view.setOnClickListener(new RestaurantItemClickListener(currRestaurant, context));
         return view;
     }
 

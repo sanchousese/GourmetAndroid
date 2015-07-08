@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              style="@style/BodyRestaurantBlock">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/red"
+                    android:layout_gravity="fill_horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/app_name"
+                android:id="@+id/tvActivityTitle"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/sand"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"/>
+    </RelativeLayout>
+
+        <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/scrollView">
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ivPreview"
+                            android:layout_gravity="center_horizontal"/>
+
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingBottom="5dp"
+                            style="@style/TitleRestaurantBlock">
+
+                        <Button
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/toShortList"
+                                android:id="@+id/btnAddToShortlist"
+                                android:layout_below="@+id/tvRestaurantName"
+                                android:layout_alignRight="@+id/tvRestaurantName"
+                                android:layout_alignEnd="@+id/tvRestaurantName"
+                                style="@style/Button.RedButton"
+                                />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="New Text"
+                                android:id="@+id/tvStreet"
+                                style="@style/Text.LittleText.GreenText"
+                                android:layout_alignTop="@+id/btnAddToShortlist"
+                                android:layout_alignLeft="@+id/tvRestaurantName"
+                                android:layout_alignStart="@+id/tvRestaurantName"
+                                android:layout_toLeftOf="@+id/btnAddToShortlist"
+                                android:layout_toStartOf="@+id/btnAddToShortlist"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Le First, resturant boudoir Paris"
+                                android:id="@+id/tvRestaurantName"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                style="@style/Text.GreyText.BigText"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="5dp"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/average_check"
+                                android:id="@+id/textView2"
+                                style="@style/Text.MiddleText.GreyText"/>
+
+                        <TextView
+                                style="@style/Text.MiddleText.GreyText.Bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="от 70 €"
+                                android:id="@+id/tvAverageCheck"
+                                android:layout_alignBaseline="@+id/textView2"
+                                android:layout_alignBottom="@+id/textView2"
+                                android:layout_toRightOf="@+id/textView2"
+                                android:layout_toEndOf="@+id/textView2"
+                                android:layout_marginLeft="5dp"/>
+
+                        <TextView
+                                style="@style/Text.MiddleText.GreyText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Время работы:"
+                                android:id="@+id/textView3"
+                                android:layout_below="@+id/textView2"
+                                android:layout_alignLeft="@+id/textView2"
+                                android:layout_alignStart="@+id/textView2"
+                                android:layout_marginTop="15dp"/>
+
+                        <Button
+                                style="@style/Button.GreenButton"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/sum_up"
+                                android:id="@+id/btnSumUp"
+                                android:layout_alignTop="@+id/textView3"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Пн-пт 9:00 - 23:00\nСб-вс 9:00 - до последнего клиента"
+                                android:id="@+id/tvWorkingTime"
+                                android:layout_below="@+id/textView3"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                style="@style/Text.MiddleText.GreyText"
+                                android:layout_toLeftOf="@+id/btnSumUp"
+                                android:layout_toStartOf="@+id/btnSumUp"
+                                android:layout_marginRight="5dp"/>
+
+                        <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tvWorkingTime"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:id="@+id/frameLayout2">
+                        </FrameLayout>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Тут ровно 140 символов о заведении. Его основная фишка. Мы конечно не Чехов, но краткость - сестра таланта."
+                                android:id="@+id/tvDetails"
+                                android:layout_below="@+id/frameLayout2"
+                                android:layout_alignLeft="@+id/frameLayout2"
+                                android:layout_alignStart="@+id/frameLayout2"
+                                android:layout_alignRight="@+id/frameLayout2"
+                                android:layout_alignEnd="@+id/frameLayout2"
+                                style="@style/Text.LittleText.GreyText"
+                                android:layout_marginTop="20dp"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="70dp"
+                            >
+
+                        <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/favorite_dishes"
+                                android:id="@+id/btnFavoriteDishes"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                style="@style/Button.RedButton.WithMargin"
+                                android:layout_alignRight="@+id/frameLayout"
+                                android:layout_alignEnd="@+id/frameLayout"/>
+
+                        <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/book_the_table"
+                                android:id="@+id/btnBookTheTable"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                style="@style/Button.RedButton.WithMargin"
+                                android:layout_toRightOf="@+id/frameLayout"
+                                android:layout_toEndOf="@+id/frameLayout"/>
+
+                        <FrameLayout
+                                android:layout_width="1dp"
+                                android:layout_height="1dp"
+                                android:layout_centerInParent="true"
+                                android:id="@+id/frameLayout">
+                        </FrameLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+        </ScrollView>
+</LinearLayout>

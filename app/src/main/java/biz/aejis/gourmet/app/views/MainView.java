@@ -6,11 +6,9 @@ import com.google.android.gms.maps.GoogleMap;
 /**
  * Created by Sutula on 28.06.15.
  */
-public interface MainView {
+public interface MainView extends BasicView {
 
     void setUpMap(GoogleMap map);
-
-    void showAlert(String message);
 
     void updateList();
 

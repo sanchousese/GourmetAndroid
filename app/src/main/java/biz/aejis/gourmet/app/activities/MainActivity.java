@@ -20,7 +20,7 @@ import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 
-public class MainActivity extends ActionBarActivity implements MaterialTabListener, MainView,
+public class MainActivity extends BaseActivity implements MaterialTabListener, MainView,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private MainPresenter mainPresenter;
@@ -60,6 +60,11 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         initializeGoogleApi();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void initializeGoogleApi() {
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -83,11 +88,6 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
     @Override
     public void setUpMap(GoogleMap map) {
         mainPresenter.setUpMap(map);
-    }
-
-    @Override
-    public void showAlert(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

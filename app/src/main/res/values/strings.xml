@@ -7,4 +7,14 @@
     <string name="map">Карта</string>
     <string name="restaurants">Рестораны</string>
     <string name="shortlist">Избранное</string>
+    <string name="toShortList">В шортлист</string>
+    <string name="average_check">Средний чек</string>
+    <string name="time_of_work">Время работы:</string>
+    <string name="sum_up">Оценить</string>
+    <string name="book_the_table">Забронировать стол</string>
+    <string name="favorite_dishes">Избранные блюда</string>
+    <string name="title_activity_restaurant_info">RestaurantInfoActivity</string>
+    <string name="saved_restaurant_id">RESTAURANT ID</string>
+    <string name="preferences">PREFERENCES</string>
+    <string name="error_message">Ошибка!!!</string>
 </resources>

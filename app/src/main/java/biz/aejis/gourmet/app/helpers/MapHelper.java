@@ -71,6 +71,7 @@ public class MapHelper {
                 .position(position)
                 .title(title)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
+                .snippet("Additional info")
         );
         markers.add(marker);
         Log.d(TAG, "Marker on position: latitude: " + latitude + " longitude: " + longitude + " title: " + title);
