@@ -1,12 +1,14 @@
 package biz.aejis.gourmet.app.helpers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
 import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.R;
+import biz.aejis.gourmet.app.activities.RestaurantInfoActivity;
 import biz.aejis.gourmet.app.api.ApiClient;
 import biz.aejis.gourmet.app.listeners.MapChangeListener;
 import biz.aejis.gourmet.app.models.Restaurant;
@@ -51,7 +53,7 @@ public class MapHelper {
         initializeMap(map);
     }
 
-    private void initializeMap(GoogleMap map) {
+    private void initializeMap(final GoogleMap map) {
         map.setMyLocationEnabled(true);
         map.setOnCameraChangeListener(new MapChangeListener(this));
         map.getUiSettings().setZoomControlsEnabled(true);
@@ -60,6 +62,20 @@ public class MapHelper {
             public boolean onMarkerClick(Marker marker) {
                 marker.showInfoWindow();
                 return true;
+            }
+        });
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Context context = GourmetApplication.getInstance().getApplicationContext();
+
+                int restaurantId = GourmetApplication.findRestaurantIdByName(marker.getTitle());
+
+                PreferencesHelper.writeRestaurantIdToSharedPreferences(restaurantId);
+                context.startActivity(
+                        new Intent(context, RestaurantInfoActivity.class)
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                );
             }
         });
         Log.d(TAG, "Map has been initialized");
@@ -71,7 +87,6 @@ public class MapHelper {
                 .position(position)
                 .title(title)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
-                .snippet("Additional info")
         );
         markers.add(marker);
         Log.d(TAG, "Marker on position: latitude: " + latitude + " longitude: " + longitude + " title: " + title);

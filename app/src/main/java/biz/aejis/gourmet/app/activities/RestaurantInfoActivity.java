@@ -1,19 +1,21 @@
 package biz.aejis.gourmet.app.activities;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
-import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.api.ApiClient;
+import biz.aejis.gourmet.app.models.Photo;
 import biz.aejis.gourmet.app.models.Restaurant;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import com.squareup.picasso.Picasso;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 
 public class RestaurantInfoActivity extends BaseActivity {
 
@@ -32,8 +34,10 @@ public class RestaurantInfoActivity extends BaseActivity {
     TextView tvWorkingTime;
     @InjectView(R.id.tvDetails)
     TextView tvDetails;
-    @InjectView(R.id.ivPreview)
-    ImageView ivPreview;
+    @InjectView(R.id.slider)
+    SliderLayout slider;
+    @InjectView(R.id.ratingRestaurantBar)
+    RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +46,14 @@ public class RestaurantInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_restaurant_info);
         ButterKnife.inject(this);
 
+        slider.setDuration(5000);
         restaurant = getCurrentRestaurant();
         loadInfoToViews();
     }
 
     private void loadInfoToViews() {
-        tryToLoadImage();
+        loadImages();
+        ratingBar.setNumStars(restaurant.getRating() / 20);
         tvRestaurantName.setText(restaurant.getName());
         tvStreet.setText(Html.fromHtml("<u>Av. " + restaurant.getStreet() + "</u>"));
 
@@ -61,12 +67,20 @@ public class RestaurantInfoActivity extends BaseActivity {
         tvDetails.setText(restaurant.getDescription());
     }
 
-    private void tryToLoadImage() {
-        if(restaurant.getPhotos().size() > 0) {
-            Picasso.with(this)
-                    .load(ApiClient.SITE_NAME + restaurant.getPhotos().get(0).getNormal())
-                    .into(ivPreview);
+    private void loadImages() {
+        for (Photo photo : restaurant.getPhotos()) {
+            TextSliderView textSliderView = new TextSliderView(this);
+            textSliderView
+                    .description("")
+                    .image(ApiClient.SITE_NAME + photo.getNormal())
+                    .setScaleType(BaseSliderView.ScaleType.FitCenterCrop);
+            slider.addSlider(textSliderView);
         }
+    }
+
+    @OnClick(R.id.rlTitle)
+    public void rlTitleClick() {
+        finish();
     }
 
     @OnClick(R.id.btnAddToShortlist)

@@ -37,4 +37,11 @@ public class GourmetApplication extends Application {
         this.latestResponse = latestResponse;
         Log.d(TAG, "setLatestResponse: " + latestResponse);
     }
+
+    public static int findRestaurantIdByName(String name) {
+        return getInstance()
+                .getLatestResponse()
+                .getRestaurantByName(name)
+                .getId();
+    }
 }

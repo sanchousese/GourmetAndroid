@@ -14,14 +14,6 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
-      <excludeFolder url="file://$MODULE_DIR$/node_modules/cordova/node_modules/cordova-lib/src/platforms" />
-      <excludeFolder url="file://$MODULE_DIR$/node_modules/cordova/node_modules/cordova-lib/src/plugman/platforms" />
-      <excludeFolder url="file://$MODULE_DIR$/node_modules/cordova/node_modules/cordova-lib/templates/platforms" />
-      <excludeFolder url="file://$MODULE_DIR$/node_modules/ionic/node_modules/ionic-app-lib/node_modules/ionic-cordova-lib/src/platforms" />
-      <excludeFolder url="file://$MODULE_DIR$/node_modules/ionic/node_modules/ionic-app-lib/node_modules/ionic-cordova-lib/src/plugman/platforms" />
-      <excludeFolder url="file://$MODULE_DIR$/node_modules/ionic/node_modules/ionic-app-lib/node_modules/ionic-cordova-lib/templates/platforms" />
-      <excludeFolder url="file://$MODULE_DIR$/node_modules/phonegap/node_modules/cordova/node_modules/plugman/platforms" />
-      <excludeFolder url="file://$MODULE_DIR$/node_modules/phonegap/node_modules/cordova/spec/fixtures/projects/cordova/platforms" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

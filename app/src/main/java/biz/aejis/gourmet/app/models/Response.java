@@ -38,6 +38,15 @@ public class Response {
         return null;
     }
 
+    public Restaurant getRestaurantByName(String name) {
+        for (Restaurant restaurant : restaurants) {
+            if (restaurant.getName().equals(name)) {
+                return restaurant;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Response{" +

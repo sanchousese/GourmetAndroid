@@ -48,7 +48,7 @@ public class MainPresenter implements Updater {
         final Date dateOfCurrentUpdate = new Date();
 
         ApiClient.getGourmetApiClient().getRestaurantsInSquare(northwest.latitude, northwest.longitude,
-                southeast.latitude, southeast.longitude, new Callback<Response>() {
+                southeast.latitude, southeast.longitude, "ru", new Callback<Response>() {
                     @Override
                     public void success(Response response, retrofit.client.Response response2) {
                         Log.d(TAG, "ApiClient success, data: " + response);

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.activities.RestaurantInfoActivity;
+import biz.aejis.gourmet.app.helpers.PreferencesHelper;
 import biz.aejis.gourmet.app.models.Restaurant;
 
 /**
@@ -28,11 +29,7 @@ public class RestaurantItemClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Log.d(TAG, "click " + currRestaurant.getId());
-        SharedPreferences sharedPreferences = context
-                .getSharedPreferences(context.getString(R.string.preferences), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(context.getString(R.string.saved_restaurant_id), currRestaurant.getId());
-        editor.apply();
+        PreferencesHelper.writeRestaurantIdToSharedPreferences(currRestaurant.getId());
 
         context.startActivity(new Intent(context, RestaurantInfoActivity.class));
     }

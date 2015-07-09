@@ -7,4 +7,5 @@
     <dimen name="button_stroke_width">1dp</dimen>
     <dimen name="button_text_size">11dp</dimen>
     <dimen name="button_text_size_margin">9dp</dimen>
+    <dimen name="button_radius">10dp</dimen>
 </resources>

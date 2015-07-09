@@ -29,6 +29,6 @@ public class ApiClient {
         @GET("/api/v2/restaurants")
         void getRestaurantsInSquare(@Query("lat0") double northwestLatitude, @Query("long0") double northwestLongitude,
                                     @Query("lat1") double southeastLatitude, @Query("long1") double southeastLongitude,
-                                    Callback<Response> callback);
+                                    @Query("locale") String locale, Callback<Response> callback);
     }
 }
