@@ -7,4 +7,6 @@ public interface Updater {
 
     void updateInfo();
 
+    void startRestaurantInfoActivity();
+
 }

@@ -3,11 +3,10 @@ package biz.aejis.gourmet.app.presenters;
 import android.location.Location;
 import android.util.Log;
 import biz.aejis.gourmet.app.GourmetApplication;
-import biz.aejis.gourmet.app.activities.MainActivity;
 import biz.aejis.gourmet.app.api.ApiClient;
 import biz.aejis.gourmet.app.helpers.MapHelper;
 import biz.aejis.gourmet.app.models.Response;
-import biz.aejis.gourmet.app.views.MainView;
+import biz.aejis.gourmet.app.views.MapView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import retrofit.Callback;
@@ -22,14 +21,14 @@ public class MainPresenter implements Updater {
 
     private static final String TAG = "MainPresenter";
 
-    private MainView mainView;
+    private MapView mapView;
 
     private MapHelper mapHelper;
 
     private Date dateOfLastUpdate = new Date();
 
-    public MainPresenter(MainView mainView) {
-        this.mainView = mainView;
+    public MainPresenter(MapView mapView) {
+        this.mapView = mapView;
     }
 
     public void setUpMap(GoogleMap map) {
@@ -40,7 +39,7 @@ public class MainPresenter implements Updater {
     @Override
     public void updateInfo() {
 
-        mainView.setProgressBarVisible();
+        mapView.setProgressBarVisible();
 
         LatLng northwest = mapHelper.getNorthwestPoint();
         LatLng southeast = mapHelper.getSoutheastPoint();
@@ -56,17 +55,22 @@ public class MainPresenter implements Updater {
                             dateOfLastUpdate = dateOfCurrentUpdate;
                             GourmetApplication.getInstance().setLatestResponse(response);
                             updateViews();
-                            mainView.setProgressBarGone();
+                            mapView.setProgressBarGone();
                         }
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        mainView.showAlert("Network troubles!");
-                        mainView.setProgressBarGone();
+                        mapView.showAlert("Network troubles!");
+                        mapView.setProgressBarGone();
                     }
                 });
 
+    }
+
+    @Override
+    public void startRestaurantInfoActivity() {
+        mapView.startRestaurantInfoActivity();
     }
 
     public void setPositionOn(Location location) {
@@ -75,6 +79,6 @@ public class MainPresenter implements Updater {
 
     private void updateViews() {
         mapHelper.redraw();
-        mainView.updateList();
+        mapView.updateList();
     }
 }

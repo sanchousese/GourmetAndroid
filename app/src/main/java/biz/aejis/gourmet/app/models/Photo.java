@@ -1,14 +1,22 @@
 package biz.aejis.gourmet.app.models;
 
 import com.google.gson.annotations.Expose;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+@DatabaseTable(tableName = "photo")
 public class Photo {
 
     @Expose
+    @DatabaseField
     private String thumb;
+
     @Expose
+    @DatabaseField
     private String normal;
+
     @Expose
+    @DatabaseField
     private String original;
 
     /**

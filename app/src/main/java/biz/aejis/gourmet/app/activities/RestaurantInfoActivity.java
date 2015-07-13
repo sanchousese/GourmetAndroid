@@ -1,5 +1,6 @@
 package biz.aejis.gourmet.app.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -103,7 +104,13 @@ public class RestaurantInfoActivity extends BaseActivity {
         Log.d(TAG, "SumUp");
     }
 
+    @OnClick(R.id.tvStreet)
+    public void showOnMap() {
+        startActivity(new Intent(this, RestaurantMapActivity.class));
+    }
+
     private Restaurant getCurrentRestaurant() {
+
         int restaurantId = getSharedPreferences(getString(R.string.preferences), MODE_PRIVATE)
                 .getInt(getString(R.string.saved_restaurant_id), ERROR_CODE);
 

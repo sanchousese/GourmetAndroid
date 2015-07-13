@@ -7,9 +7,9 @@ import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.fragments.MapPageFragment;
 import biz.aejis.gourmet.app.fragments.RestaurantsListPageFragment;
+import biz.aejis.gourmet.app.fragments.RestaurantsShortlistFragment;
 import biz.aejis.gourmet.app.interfaces.ViewPageTransmitter;
-import biz.aejis.gourmet.app.views.MainView;
-import com.google.android.gms.maps.GoogleMap;
+import biz.aejis.gourmet.app.views.MapView;
 
 /**
  * Created by Sutula on 30.06.15.
@@ -20,7 +20,9 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter implements V
 
     private RestaurantsListPageFragment restaurantsListPageFragment;
 
-    public MainViewPagerAdapter(FragmentManager fm, MainView mainView) {
+    private RestaurantsShortlistFragment restaurantsShortlistFragment;
+
+    public MainViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -30,12 +32,12 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter implements V
             case 0:
                 mapPageFragment = new MapPageFragment();
                 return mapPageFragment;
-
             case 1:
                 restaurantsListPageFragment = new RestaurantsListPageFragment();
                 return restaurantsListPageFragment;
             case 2:
-                return new RestaurantsListPageFragment();
+                restaurantsShortlistFragment = new RestaurantsShortlistFragment();
+                return restaurantsShortlistFragment;
             default:
                 return null;
         }
@@ -60,8 +62,15 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter implements V
     }
 
     @Override
+    public void updateShortList() {
+        restaurantsShortlistFragment.updateList();
+    }
+
+    @Override
     public void setProgressBarVisible() {
-        mapPageFragment.setProgressBarVisible();
+        if(mapPageFragment != null) {
+            mapPageFragment.setProgressBarVisible();
+        }
     }
 
     @Override

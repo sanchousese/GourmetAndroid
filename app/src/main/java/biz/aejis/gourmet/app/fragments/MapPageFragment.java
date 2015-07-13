@@ -2,14 +2,17 @@ package biz.aejis.gourmet.app.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 import biz.aejis.gourmet.app.R;
-import biz.aejis.gourmet.app.views.MainView;
+import biz.aejis.gourmet.app.views.MapView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.maps.*;
 
 /**
@@ -17,7 +20,10 @@ import com.google.android.gms.maps.*;
  */
 public class MapPageFragment extends Fragment {
 
-    @InjectView(R.id.map) MapView mapView;
+    private final static String TAG = "MapPageFragment";
+
+    @InjectView(R.id.map)
+    com.google.android.gms.maps.MapView mapView;
     @InjectView(R.id.progressBar) ProgressBar progressBar;
 
     @Override
@@ -30,9 +36,13 @@ public class MapPageFragment extends Fragment {
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
 
-        MapsInitializer.initialize(getActivity());
+        int result = MapsInitializer.initialize(getActivity());
 
-        ((MainView) getActivity()).setUpMap(mapView.getMap());
+        if(result == ConnectionResult.SUCCESS) {
+            ((MapView) getActivity()).setUpMap(mapView.getMap());
+        } else {
+            Toast.makeText(getActivity(), "Пожалуйста установите Google Play Services", Toast.LENGTH_LONG).show();
+        }
 
         return view;
 

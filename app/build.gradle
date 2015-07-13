@@ -4,9 +4,11 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.1.1'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.0'
     }
 }
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 repositories {
     jcenter()
@@ -39,7 +41,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:support-v4:22.2.0"
+    compile 'com.android.support:support-v4:22.2.0'
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.jakewharton:butterknife:6.1.0'
@@ -50,4 +52,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
+    compile 'com.j256.ormlite:ormlite-core:4.48'
+    compile 'com.j256.ormlite:ormlite-android:4.48'
 }

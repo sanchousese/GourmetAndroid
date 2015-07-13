@@ -17,4 +17,6 @@
     <string name="saved_restaurant_id">RESTAURANT ID</string>
     <string name="preferences">PREFERENCES</string>
     <string name="error_message">Ошибка!!!</string>
+    <string name="title_activity_restaurant_map">RestaurantMapActivity</string>
+    <string name="fromShortList">Из шортлиста</string>
 </resources>

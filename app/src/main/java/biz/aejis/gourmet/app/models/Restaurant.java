@@ -4,40 +4,73 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+@DatabaseTable(tableName = "restaurant")
 public class Restaurant {
 
     @Expose
+    @DatabaseField
     private int id;
+
     @Expose
+    @DatabaseField
     private String name;
+
     @Expose
+    @DatabaseField
     private String city;
+
     @Expose
+    @DatabaseField
     private String index;
+
     @Expose
+    @DatabaseField
     private String street;
+
     @Expose
+    @DatabaseField
     private int popularity;
+
     @Expose
+    @DatabaseField
     private int rating;
+
     @Expose
+    @DatabaseField
     private String phone;
+
     @Expose
+    @DatabaseField
     private String latitude;
+
     @Expose
+    @DatabaseField
     private String longitude;
+
     @SerializedName("atmosfere_ids")
     @Expose
     private List<Integer> atmosfereIds = new ArrayList<Integer>();
+
     @Expose
+    @DatabaseField
     private int averagesum;
+
     @Expose
     private List<Photo> photos = new ArrayList<Photo>();
+
     @Expose
+    @DatabaseField
     private String worktime;
+
     @Expose
+    @DatabaseField
     private String description;
+
+    public Restaurant() {
+    }
 
     /**
      *

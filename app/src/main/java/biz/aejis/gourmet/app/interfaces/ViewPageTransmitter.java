@@ -9,6 +9,8 @@ public interface ViewPageTransmitter {
 
     void updateList();
 
+    void updateShortList();
+
     void setProgressBarVisible();
 
     void setProgressBarGone();

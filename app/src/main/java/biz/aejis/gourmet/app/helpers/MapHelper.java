@@ -1,5 +1,6 @@
 package biz.aejis.gourmet.app.helpers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
@@ -57,26 +58,16 @@ public class MapHelper {
         map.setMyLocationEnabled(true);
         map.setOnCameraChangeListener(new MapChangeListener(this));
         map.getUiSettings().setZoomControlsEnabled(true);
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                marker.showInfoWindow();
-                return true;
-            }
+        map.setOnMarkerClickListener(marker -> {
+            marker.showInfoWindow();
+            return true;
         });
-        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-            @Override
-            public void onInfoWindowClick(Marker marker) {
-                Context context = GourmetApplication.getInstance().getApplicationContext();
+        map.setOnInfoWindowClickListener(marker -> {
+            int restaurantId = GourmetApplication.findRestaurantIdByName(marker.getTitle());
 
-                int restaurantId = GourmetApplication.findRestaurantIdByName(marker.getTitle());
+            PreferencesHelper.writeRestaurantIdToSharedPreferences(restaurantId);
 
-                PreferencesHelper.writeRestaurantIdToSharedPreferences(restaurantId);
-                context.startActivity(
-                        new Intent(context, RestaurantInfoActivity.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                );
-            }
+            updater.startRestaurantInfoActivity();
         });
         Log.d(TAG, "Map has been initialized");
     }
@@ -94,7 +85,7 @@ public class MapHelper {
 
     public void clearMap() {
         map.clear();
-        markers = new ArrayList<Marker>();
+        markers = new ArrayList<>();
         Log.d(TAG, "All markers have been deleted");
     }
 
@@ -145,5 +136,13 @@ public class MapHelper {
             map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         }
+    }
+
+    public static MarkerOptions generateMarkerFromRestaurant(Restaurant restaurant) {
+        LatLng position = new LatLng(restaurant.getLatitude(), restaurant.getLongitude());
+        return new MarkerOptions()
+                        .position(position)
+                        .title(restaurant.getName())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
     }
 }

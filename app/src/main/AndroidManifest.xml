@@ -29,7 +29,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.MainMapActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -42,6 +42,15 @@
             android:name=".activities.RestaurantInfoActivity"
             android:label="@string/title_activity_restaurant_info"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.RestaurantMapActivity"
+            android:label="@string/title_activity_restaurant_map"
+            android:parentActivityName=".activities.RestaurantInfoActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="biz.aejis.gourmet.app.activities.RestaurantInfoActivity" />
         </activity>
     </application>
 

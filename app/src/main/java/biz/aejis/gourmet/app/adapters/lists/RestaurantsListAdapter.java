@@ -37,9 +37,9 @@ public class RestaurantsListAdapter extends BaseAdapter {
     private final static int ROUND_RADIUS = 10;
     private final static int ROUND_MARGIN = 0;
 
-    public RestaurantsListAdapter(Context context) {
+    public RestaurantsListAdapter(Context context, List<Restaurant> restaurants) {
         this.context = context;
-        restaurants = GourmetApplication.getInstance().getLatestResponse().getRestaurants();
+        this.restaurants = restaurants;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class RestaurantsListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder holder;
-        if (view != null){
+        if (view != null) {
             holder = (ViewHolder) view.getTag();
         } else {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -74,7 +74,7 @@ public class RestaurantsListAdapter extends BaseAdapter {
         holder.title.setText(currRestaurant.getName());
         holder.street.setText(Html.fromHtml("<u>Av. " + currRestaurant.getStreet() + "</u>"));
 
-        if(currRestaurant.getAveragesum() > 0)
+        if (currRestaurant.getAveragesum() > 0)
             holder.averagePrice.setText("от " + currRestaurant.getAveragesum() + " €");
         else
             holder.averagePrice.setText("");
@@ -100,12 +100,18 @@ public class RestaurantsListAdapter extends BaseAdapter {
 
     static class ViewHolder {
 
-        @InjectView(R.id.tvName) TextView title;
-        @InjectView(R.id.ivRestaurantImage) ImageView restaurantImage;
-        @InjectView(R.id.imageProgressBar) ProgressBar imageProgressBar;
-        @InjectView(R.id.tvStreet) TextView street;
-        @InjectView(R.id.tvAverPrice) TextView averagePrice;
-        @InjectView(R.id.ratingRestaurantBar) RatingBar ratingBar;
+        @InjectView(R.id.tvName)
+        TextView title;
+        @InjectView(R.id.ivRestaurantImage)
+        ImageView restaurantImage;
+        @InjectView(R.id.imageProgressBar)
+        ProgressBar imageProgressBar;
+        @InjectView(R.id.tvStreet)
+        TextView street;
+        @InjectView(R.id.tvAverPrice)
+        TextView averagePrice;
+        @InjectView(R.id.ratingRestaurantBar)
+        RatingBar ratingBar;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
