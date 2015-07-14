@@ -3,17 +3,20 @@ package biz.aejis.gourmet.app.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.api.ApiClient;
 import biz.aejis.gourmet.app.managers.DatabaseManager;
+import biz.aejis.gourmet.app.models.Atmosfere;
 import biz.aejis.gourmet.app.models.Photo;
 import biz.aejis.gourmet.app.models.Restaurant;
 import butterknife.ButterKnife;
@@ -22,6 +25,8 @@ import butterknife.OnClick;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+
+import java.util.List;
 
 public class RestaurantInfoActivity extends BaseActivity {
 
@@ -44,6 +49,8 @@ public class RestaurantInfoActivity extends BaseActivity {
     SliderLayout slider;
     @InjectView(R.id.ratingRestaurantBar)
     RatingBar ratingBar;
+    @InjectView(R.id.atmosferesPlaceholder)
+    FrameLayout atmosferesPlaceholder;
 
     @InjectView(R.id.btnBookTheTable)
     Button btnBookTheTable;
@@ -97,6 +104,14 @@ public class RestaurantInfoActivity extends BaseActivity {
         tvDetails.setText(restaurant.getDescription());
 
         btnBookTheTable.setText(btnBookTheTable.getText() + "\t" + restaurant.getPhone());
+
+        List<Integer> atmosferesIds = restaurant.getAtmosfereIds();
+        for (int i = 0; i < atmosferesIds.size(); i++) {
+            String atmosfereName = DatabaseManager.getInstance().getNameOfAtmosfere(
+                            atmosferesIds.get(i)
+                    );
+            Log.d(TAG, "atmosfereName\t" + atmosfereName);
+        }
     }
 
     private void loadImages() {

@@ -3,8 +3,7 @@ package biz.aejis.gourmet.app.managers;
 import android.content.Context;
 import android.util.Log;
 import biz.aejis.gourmet.app.helpers.DatabaseHelper;
-import biz.aejis.gourmet.app.models.Photo;
-import biz.aejis.gourmet.app.models.Restaurant;
+import biz.aejis.gourmet.app.models.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -89,11 +88,30 @@ public class DatabaseManager {
 
     public String getNameOfAtmosfere(int id) {
         try {
-            return helper.getCategoryDao().queryForId(id).getName();
+            return helper.getAtmosfereDao().queryForId(id).getName();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void addAtmosferes(Atmosferes atmosferes) {
+        List<Atmosfere> atmosferesList = atmosferes.getAtmosferes();
+        for (int i = 0; i < atmosferesList.size(); i++) {
+            try {
+                helper.getAtmosfereDao().create(atmosferesList.get(i));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void addIntegerWrapper(IntegerWrapper wrapper) {
+        try {
+            helper.getWrapperIntegerDao().create(wrapper);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

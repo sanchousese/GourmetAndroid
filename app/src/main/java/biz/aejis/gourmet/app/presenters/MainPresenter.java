@@ -5,6 +5,9 @@ import android.util.Log;
 import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.api.ApiClient;
 import biz.aejis.gourmet.app.helpers.MapHelper;
+import biz.aejis.gourmet.app.managers.DatabaseManager;
+import biz.aejis.gourmet.app.models.Atmosfere;
+import biz.aejis.gourmet.app.models.Atmosferes;
 import biz.aejis.gourmet.app.models.Response;
 import biz.aejis.gourmet.app.views.MapView;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,6 +16,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Sutula on 28.06.15.
@@ -29,6 +33,18 @@ public class MainPresenter implements Updater {
 
     public MainPresenter(MapView mapView) {
         this.mapView = mapView;
+
+        ApiClient.getGourmetApiClient().getAtmosferes(new Callback<Atmosferes>() {
+            @Override
+            public void success(Atmosferes atmosferes, retrofit.client.Response response) {
+                DatabaseManager.getInstance().addAtmosferes(atmosferes);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d(TAG, error.getUrl() + " " + error.getBody() + " " + error.getResponse());
+            }
+        });
     }
 
     public void setUpMap(GoogleMap map) {

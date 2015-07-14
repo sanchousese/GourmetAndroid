@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import android.provider.ContactsContract;
 import biz.aejis.gourmet.app.managers.DatabaseManager;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -60,6 +58,9 @@ public class Restaurant {
     @Expose
     private List<Integer> atmosfereIds = new ArrayList<>();
 
+    @ForeignCollectionField
+    private Collection<IntegerWrapper> atmosferesInDB = new ArrayList<>();
+
     @Expose
     @DatabaseField
     private int averagesum;
@@ -73,7 +74,7 @@ public class Restaurant {
     private String worktime;
 
     @Expose
-    @DatabaseField()
+    @DatabaseField
     private String description;
 
     public Restaurant() {
@@ -244,7 +245,15 @@ public class Restaurant {
      * @return The atmosfereIds
      */
     public List<Integer> getAtmosfereIds() {
-        return atmosfereIds;
+        if (atmosfereIds != null && atmosfereIds.size() > 0) {
+            return atmosfereIds;
+        }
+
+        List<Integer> integers = new ArrayList<>();
+        for (IntegerWrapper wrapper : atmosferesInDB) {
+            integers.add(wrapper.getValue());
+        }
+        return integers;
     }
 
     /**
@@ -319,6 +328,19 @@ public class Restaurant {
             photo.setRestaurant(this);
             DatabaseManager.getInstance().addPhoto(photo);
         }
+
+        for (Integer integer : atmosfereIds) {
+            IntegerWrapper wrapper = new IntegerWrapper(integer, this);
+            atmosferesInDB.add(wrapper);
+            DatabaseManager.getInstance().addIntegerWrapper(wrapper);
+        }
     }
 
+    public Collection<IntegerWrapper> getAtmosferesInDB() {
+        return atmosferesInDB;
+    }
+
+    public void setAtmosferesInDB(Collection<IntegerWrapper> atmosferesInDB) {
+        this.atmosferesInDB = atmosferesInDB;
+    }
 }

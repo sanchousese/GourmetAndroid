@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import biz.aejis.gourmet.app.models.Atmosfere;
+import biz.aejis.gourmet.app.models.IntegerWrapper;
 import biz.aejis.gourmet.app.models.Photo;
 import biz.aejis.gourmet.app.models.Restaurant;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -24,6 +25,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<Restaurant, Integer> restaurantDao = null;
     private Dao<Photo, Integer> photosDao = null;
     private Dao<Atmosfere, Integer> categoryDao = null;
+    private Dao<IntegerWrapper, Integer> wrapperIntegerDao = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,6 +37,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Restaurant.class);
             TableUtils.createTable(connectionSource, Photo.class);
             TableUtils.createTable(connectionSource, Atmosfere.class);
+            TableUtils.createTable(connectionSource, IntegerWrapper.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -70,7 +73,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return photosDao;
     }
 
-    public Dao<Atmosfere, Integer> getCategoryDao() {
+    public Dao<Atmosfere, Integer> getAtmosfereDao() {
         if (categoryDao == null) {
             try {
                 categoryDao = getDao(Atmosfere.class);
@@ -79,5 +82,16 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             }
         }
         return categoryDao;
+    }
+
+    public Dao<IntegerWrapper, Integer> getWrapperIntegerDao() {
+        if (wrapperIntegerDao == null) {
+            try {
+                wrapperIntegerDao = getDao(IntegerWrapper.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return wrapperIntegerDao;
     }
 }
