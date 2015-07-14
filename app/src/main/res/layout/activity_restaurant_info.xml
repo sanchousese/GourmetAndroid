@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -181,14 +182,16 @@
                         android:layout_toStartOf="@+id/btnSumUp"
                         android:layout_marginRight="5dp"/>
 
-                <FrameLayout
-                        android:layout_width="match_parent"
+                <GridLayout
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:alignmentMode="alignMargins"
+                        tools:ignore="NewApi"
                         android:layout_below="@+id/tvWorkingTime"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:id="@+id/atmosferesPlaceholder">
-                </FrameLayout>
+                        android:id="@+id/atmosferesPlaceholder"
+                        android:layout_marginTop="10dp">
+                </GridLayout>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -201,7 +204,7 @@
                         android:layout_alignRight="@+id/atmosferesPlaceholder"
                         android:layout_alignEnd="@+id/atmosferesPlaceholder"
                         style="@style/Text.LittleText.GreyText"
-                        android:layout_marginTop="20dp"/>
+                        android:layout_marginTop="10dp"/>
 
             </RelativeLayout>
 

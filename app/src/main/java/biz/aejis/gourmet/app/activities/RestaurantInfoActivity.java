@@ -1,17 +1,16 @@
 package biz.aejis.gourmet.app.activities;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.RatingBar;
-import android.widget.TextView;
+import android.widget.*;
 import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.api.ApiClient;
@@ -50,7 +49,7 @@ public class RestaurantInfoActivity extends BaseActivity {
     @InjectView(R.id.ratingRestaurantBar)
     RatingBar ratingBar;
     @InjectView(R.id.atmosferesPlaceholder)
-    FrameLayout atmosferesPlaceholder;
+    GridLayout atmosferesPlaceholder;
 
     @InjectView(R.id.btnBookTheTable)
     Button btnBookTheTable;
@@ -107,11 +106,21 @@ public class RestaurantInfoActivity extends BaseActivity {
 
         List<Integer> atmosferesIds = restaurant.getAtmosfereIds();
         for (int i = 0; i < atmosferesIds.size(); i++) {
-            String atmosfereName = DatabaseManager.getInstance().getNameOfAtmosfere(
-                            atmosferesIds.get(i)
-                    );
-            Log.d(TAG, "atmosfereName\t" + atmosfereName);
+            addAtmosfereTextView(atmosferesIds.get(i));
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    private void addAtmosfereTextView(int id) {
+        String atmosfereName = DatabaseManager.getInstance().getNameOfAtmosfere(id);
+        TextView textView = new TextView(this);
+        textView.setText(atmosfereName);
+        textView.setTextAppearance(this, R.style.Text_LittleText_GreenText);
+        GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
+        layoutParams.setMargins(5, 0, 20, 0);
+        textView.setLayoutParams(layoutParams);
+        atmosferesPlaceholder.addView(textView);
+        Log.d(TAG, "atmosfereName\t" + atmosfereName);
     }
 
     private void loadImages() {
