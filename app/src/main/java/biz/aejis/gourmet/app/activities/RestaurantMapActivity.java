@@ -44,6 +44,7 @@ public class RestaurantMapActivity extends BaseActivity implements OnMapReadyCal
         googleMap.clear();
         Restaurant restaurant = getCurrentRestaurant();
         googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.addMarker(MapHelper.generateMarkerFromRestaurant(restaurant));
         googleMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
@@ -63,7 +64,6 @@ public class RestaurantMapActivity extends BaseActivity implements OnMapReadyCal
         }
 
         return ((GourmetApplication) getApplication())
-                .getLatestResponse()
                 .getRestaurantById(restaurantId);
     }
 

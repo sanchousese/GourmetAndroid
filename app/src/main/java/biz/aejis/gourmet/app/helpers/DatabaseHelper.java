@@ -3,7 +3,7 @@ package biz.aejis.gourmet.app.helpers;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import biz.aejis.gourmet.app.R;
+import biz.aejis.gourmet.app.models.Atmosfere;
 import biz.aejis.gourmet.app.models.Photo;
 import biz.aejis.gourmet.app.models.Restaurant;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -23,6 +23,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private Dao<Restaurant, Integer> restaurantDao = null;
     private Dao<Photo, Integer> photosDao = null;
+    private Dao<Atmosfere, Integer> categoryDao = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,6 +34,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, Restaurant.class);
             TableUtils.createTable(connectionSource, Photo.class);
+            TableUtils.createTable(connectionSource, Atmosfere.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -53,7 +55,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                 e.printStackTrace();
             }
         }
-
         return restaurantDao;
     }
 
@@ -69,4 +70,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return photosDao;
     }
 
+    public Dao<Atmosfere, Integer> getCategoryDao() {
+        if (categoryDao == null) {
+            try {
+                categoryDao = getDao(Atmosfere.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return categoryDao;
+    }
 }

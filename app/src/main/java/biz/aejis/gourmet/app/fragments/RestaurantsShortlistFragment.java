@@ -13,6 +13,7 @@ import android.widget.ListView;
 import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.adapters.lists.RestaurantsListAdapter;
+import biz.aejis.gourmet.app.managers.DatabaseManager;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -26,20 +27,23 @@ public class RestaurantsShortlistFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        DatabaseManager.init(getActivity());
+
         View view = inflater.inflate(R.layout.fragment_restaurants_list, container, false);
         ButterKnife.inject(this, view);
 
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         adapter = new RestaurantsListAdapter(
                 getActivity(),
-                GourmetApplication
-                        .getInstance()
-                        .getLatestResponse()
-                        .getRestaurants()
+                DatabaseManager.getInstance().getAllRestaurants()
         );
 
         restaurantList.setAdapter(adapter);
-
-        return view;
     }
 
     public void updateList() {

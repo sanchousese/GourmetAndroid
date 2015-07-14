@@ -1,5 +1,6 @@
 package biz.aejis.gourmet.app.api;
 
+import biz.aejis.gourmet.app.models.Atmosferes;
 import biz.aejis.gourmet.app.models.Response;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -30,5 +31,8 @@ public class ApiClient {
         void getRestaurantsInSquare(@Query("lat0") double northwestLatitude, @Query("long0") double northwestLongitude,
                                     @Query("lat1") double southeastLatitude, @Query("long1") double southeastLongitude,
                                     @Query("locale") String locale, Callback<Response> callback);
+
+        @GET("/api/v2/atmosferes")
+        void getAtmosferes(Callback<Atmosferes> callback);
     }
 }

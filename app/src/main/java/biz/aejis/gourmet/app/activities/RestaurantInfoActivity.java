@@ -1,14 +1,19 @@
 package biz.aejis.gourmet.app.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.api.ApiClient;
+import biz.aejis.gourmet.app.managers.DatabaseManager;
 import biz.aejis.gourmet.app.models.Photo;
 import biz.aejis.gourmet.app.models.Restaurant;
 import butterknife.ButterKnife;
@@ -40,6 +45,14 @@ public class RestaurantInfoActivity extends BaseActivity {
     @InjectView(R.id.ratingRestaurantBar)
     RatingBar ratingBar;
 
+    @InjectView(R.id.btnBookTheTable)
+    Button btnBookTheTable;
+
+    @InjectView(R.id.btnRemoveFromShortList)
+    Button btnRemoveFromShortList;
+    @InjectView(R.id.btnAddToShortlist)
+    Button btnAddToShortList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,16 +62,32 @@ public class RestaurantInfoActivity extends BaseActivity {
 
         slider.setDuration(5000);
         restaurant = getCurrentRestaurant();
+        if (DatabaseManager.getInstance().isRestaurantInDB(restaurant)) {
+            setRemoveFromShortListVisible();
+        } else {
+            setAddToShortListVisible();
+        }
         loadInfoToViews();
+    }
+
+    private void setAddToShortListVisible() {
+        btnAddToShortList.setVisibility(View.VISIBLE);
+        btnRemoveFromShortList.setVisibility(View.INVISIBLE);
+    }
+
+    private void setRemoveFromShortListVisible() {
+        btnAddToShortList.setVisibility(View.INVISIBLE);
+        btnRemoveFromShortList.setVisibility(View.VISIBLE);
     }
 
     private void loadInfoToViews() {
         loadImages();
+
         ratingBar.setNumStars(restaurant.getRating() / 20);
         tvRestaurantName.setText(restaurant.getName());
         tvStreet.setText(Html.fromHtml("<u>Av. " + restaurant.getStreet() + "</u>"));
 
-        if(restaurant.getAveragesum() > 0)
+        if (restaurant.getAveragesum() > 0)
             tvAverageCheck.setText("от " + restaurant.getAveragesum() + " €");
         else
             tvAverageCheck.setText("");
@@ -66,6 +95,8 @@ public class RestaurantInfoActivity extends BaseActivity {
         tvWorkingTime.setText(restaurant.getWorktime());
 
         tvDetails.setText(restaurant.getDescription());
+
+        btnBookTheTable.setText(btnBookTheTable.getText() + "\t" + restaurant.getPhone());
     }
 
     private void loadImages() {
@@ -87,11 +118,24 @@ public class RestaurantInfoActivity extends BaseActivity {
     @OnClick(R.id.btnAddToShortlist)
     public void addToShortListClick() {
         Log.d(TAG, "addToShortlist");
+        DatabaseManager.getInstance().addToShortlist(restaurant);
+        setRemoveFromShortListVisible();
+    }
+
+    @OnClick(R.id.btnRemoveFromShortList)
+    public void removeFromShortList() {
+        Log.d(TAG, "removeFromShortList");
+        DatabaseManager.getInstance().removeFromShortList(restaurant);
+        setAddToShortListVisible();
     }
 
     @OnClick(R.id.btnBookTheTable)
     public void bookTheTableClick() {
         Log.d(TAG, "BookTheTable");
+
+        String phoneNumber = "+" + restaurant.getPhone().replaceAll("[^\\d]", "");
+
+        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber)));
     }
 
     @OnClick(R.id.btnFavoriteDishes)
@@ -120,7 +164,6 @@ public class RestaurantInfoActivity extends BaseActivity {
         }
 
         return ((GourmetApplication) getApplication())
-                .getLatestResponse()
                 .getRestaurantById(restaurantId);
     }
 

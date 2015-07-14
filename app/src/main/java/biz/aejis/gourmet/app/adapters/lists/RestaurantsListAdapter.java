@@ -83,7 +83,8 @@ public class RestaurantsListAdapter extends BaseAdapter {
         holder.ratingBar.setNumStars(currRestaurant.getRating() / 20);
 
         holder.imageProgressBar.setVisibility(View.VISIBLE);
-        if (currRestaurant.getPhotos().size() > 0) {
+        Log.d(TAG, String.valueOf(currRestaurant.containsPhotos()));
+        if (currRestaurant.containsPhotos()) {
             loadCover(holder, currRestaurant.getPhotos().get(0).getThumb());
         }
 

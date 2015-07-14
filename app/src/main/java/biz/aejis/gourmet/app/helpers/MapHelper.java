@@ -30,7 +30,7 @@ public class MapHelper {
 
     private GoogleMap map;
 
-    private List<Marker> markers = new ArrayList<Marker>();
+    private List<Marker> markers = new ArrayList<>();
 
     private LatLng northwestPoint, southeastPoint;
 

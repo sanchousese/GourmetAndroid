@@ -1,17 +1,23 @@
 package biz.aejis.gourmet.app.models;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import android.provider.ContactsContract;
+import biz.aejis.gourmet.app.managers.DatabaseManager;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "restaurant")
 public class Restaurant {
 
     @Expose
-    @DatabaseField
+    @DatabaseField(id = true)
     private int id;
 
     @Expose
@@ -52,181 +58,148 @@ public class Restaurant {
 
     @SerializedName("atmosfere_ids")
     @Expose
-    private List<Integer> atmosfereIds = new ArrayList<Integer>();
+    private List<Integer> atmosfereIds = new ArrayList<>();
 
     @Expose
     @DatabaseField
     private int averagesum;
 
     @Expose
-    private List<Photo> photos = new ArrayList<Photo>();
+    @ForeignCollectionField(eager = true)
+    private Collection<Photo> photos = new ArrayList<>();
 
     @Expose
     @DatabaseField
     private String worktime;
 
     @Expose
-    @DatabaseField
+    @DatabaseField()
     private String description;
 
     public Restaurant() {
     }
 
     /**
-     *
-     * @return
-     * The id
+     * @return The id
      */
     public int getId() {
         return id;
     }
 
     /**
-     *
-     * @param id
-     * The id
+     * @param id The id
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     *
-     * @return
-     * The name
+     * @return The name
      */
     public String getName() {
         return name;
     }
 
     /**
-     *
-     * @param name
-     * The name
+     * @param name The name
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     *
-     * @return
-     * The city
+     * @return The city
      */
     public String getCity() {
         return city;
     }
 
     /**
-     *
-     * @param city
-     * The city
+     * @param city The city
      */
     public void setCity(String city) {
         this.city = city;
     }
 
     /**
-     *
-     * @return
-     * The index
+     * @return The index
      */
     public String getIndex() {
         return index;
     }
 
     /**
-     *
-     * @param index
-     * The index
+     * @param index The index
      */
     public void setIndex(String index) {
         this.index = index;
     }
 
     /**
-     *
-     * @return
-     * The street
+     * @return The street
      */
     public String getStreet() {
         return street != null ? street : "";
     }
 
     /**
-     *
-     * @param street
-     * The street
+     * @param street The street
      */
     public void setStreet(String street) {
         this.street = street;
     }
 
     /**
-     *
-     * @return
-     * The popularity
+     * @return The popularity
      */
     public int getPopularity() {
         return popularity;
     }
 
     /**
-     *
-     * @param popularity
-     * The popularity
+     * @param popularity The popularity
      */
     public void setPopularity(int popularity) {
         this.popularity = popularity;
     }
 
     /**
-     *
-     * @return
-     * The rating
+     * @return The rating
      */
     public int getRating() {
         return rating;
     }
 
     /**
-     *
-     * @param rating
-     * The rating
+     * @param rating The rating
      */
     public void setRating(int rating) {
         this.rating = rating;
     }
 
     /**
-     *
-     * @return
-     * The phone
+     * @return The phone
      */
     public String getPhone() {
         return phone;
     }
 
     /**
-     *
-     * @param phone
-     * The phone
+     * @param phone The phone
      */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
     /**
-     *
-     * @return
-     * The latitude
+     * @return The latitude
      */
-    public double getLatitude() { return Double.parseDouble(latitude); }
+    public double getLatitude() {
+        return Double.parseDouble(latitude);
+    }
 
     /**
-     *
-     * @param latitude
-     * The latitude
+     * @param latitude The latitude
      */
     public void setLatitude(String latitude) {
         this.latitude = latitude;
@@ -254,111 +227,98 @@ public class Restaurant {
     }
 
     /**
-     *
-     * @return
-     * The longitude
+     * @return The longitude
      */
     public Double getLongitude() {
         return Double.parseDouble(longitude);
     }
 
     /**
-     *
-     * @param longitude
-     * The longitude
+     * @param longitude The longitude
      */
     public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
     /**
-     *
-     * @return
-     * The atmosfereIds
+     * @return The atmosfereIds
      */
     public List<Integer> getAtmosfereIds() {
         return atmosfereIds;
     }
 
     /**
-     *
-     * @param atmosfereIds
-     * The atmosfere_ids
+     * @param atmosfereIds The atmosfere_ids
      */
     public void setAtmosfereIds(List<Integer> atmosfereIds) {
         this.atmosfereIds = atmosfereIds;
     }
 
     /**
-     *
-     * @return
-     * The averagesum
+     * @return The averagesum
      */
     public int getAveragesum() {
         return averagesum;
     }
 
     /**
-     *
-     * @param averagesum
-     * The averagesum
+     * @param averagesum The averagesum
      */
     public void setAveragesum(int averagesum) {
         this.averagesum = averagesum;
     }
 
     /**
-     *
-     * @return
-     * The photos
+     * @return The photos
      */
     public List<Photo> getPhotos() {
-        return photos;
+        return new ArrayList<>(photos);
     }
 
     /**
-     *
-     * @param photos
-     * The photos
+     * @param photos The photos
      */
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
 
     /**
-     *
-     * @return
-     * The worktime
+     * @return The worktime
      */
     public String getWorktime() {
         return worktime;
     }
 
     /**
-     *
-     * @param worktime
-     * The worktime
+     * @param worktime The worktime
      */
     public void setWorktime(String worktime) {
         this.worktime = worktime;
     }
 
     /**
-     *
-     * @return
-     * The description
+     * @return The description
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     *
-     * @param description
-     * The description
+     * @param description The description
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean containsPhotos() {
+        return !photos.isEmpty();
+    }
+
+    public void hydrate() {
+        for (Photo photo : photos) {
+            photo.setRestaurant(this);
+            DatabaseManager.getInstance().addPhoto(photo);
+        }
     }
 
 }

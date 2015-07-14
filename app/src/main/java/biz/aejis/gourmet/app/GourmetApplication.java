@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import biz.aejis.gourmet.app.activities.RestaurantInfoActivity;
+import biz.aejis.gourmet.app.managers.DatabaseManager;
 import biz.aejis.gourmet.app.models.Response;
 import biz.aejis.gourmet.app.models.Restaurant;
 
@@ -37,6 +38,14 @@ public class GourmetApplication extends Application {
 
     public Response getLatestResponse() {
         return latestResponse;
+    }
+
+    public Restaurant getRestaurantById(int restaurantId) {
+        Restaurant restaurant = latestResponse.getRestaurantById(restaurantId);
+        if (restaurant == null) {
+            restaurant = DatabaseManager.getInstance().getRestaurantById(restaurantId);
+        }
+        return restaurant;
     }
 
     public void setLatestResponse(Response latestResponse) {

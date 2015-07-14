@@ -2,10 +2,17 @@ package biz.aejis.gourmet.app.models;
 
 import com.google.gson.annotations.Expose;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "photo")
 public class Photo {
+
+    @DatabaseField(generatedId = true)
+    private int id;
+
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
+    Restaurant restaurant;
 
     @Expose
     @DatabaseField
@@ -18,6 +25,9 @@ public class Photo {
     @Expose
     @DatabaseField
     private String original;
+
+    public Photo() {
+    }
 
     /**
      *
@@ -71,6 +81,14 @@ public class Photo {
      */
     public void setOriginal(String original) {
         this.original = original;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     @Override
