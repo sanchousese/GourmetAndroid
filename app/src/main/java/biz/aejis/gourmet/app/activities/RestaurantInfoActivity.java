@@ -1,6 +1,8 @@
 package biz.aejis.gourmet.app.activities;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -144,6 +146,7 @@ public class RestaurantInfoActivity extends BaseActivity {
         Log.d(TAG, "addToShortlist");
         DatabaseManager.getInstance().addToShortlist(restaurant);
         setRemoveFromShortListVisible();
+        Toast.makeText(this, "Ресторан был добавлен в избранное", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.btnRemoveFromShortList)
@@ -151,6 +154,7 @@ public class RestaurantInfoActivity extends BaseActivity {
         Log.d(TAG, "removeFromShortList");
         DatabaseManager.getInstance().removeFromShortList(restaurant);
         setAddToShortListVisible();
+        Toast.makeText(this, "Ресторан был удалён из избранного", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.btnBookTheTable)
@@ -159,7 +163,20 @@ public class RestaurantInfoActivity extends BaseActivity {
 
         String phoneNumber = "+" + restaurant.getPhone().replaceAll("[^\\d]", "");
 
-        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber)));
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(restaurant.getPhone())
+                .setTitle(R.string.book_the_table);
+
+        builder.setPositiveButton(R.string.call, (dialog, which) -> {
+            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber)));
+        });
+
+        builder.setNegativeButton(R.string.cancel, null);
+
+        builder.create().show();
+
+
     }
 
     @OnClick(R.id.btnFavoriteDishes)

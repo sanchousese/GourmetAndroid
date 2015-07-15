@@ -7,7 +7,7 @@
     <string name="map">Карта</string>
     <string name="restaurants">Рестораны</string>
     <string name="shortlist">Избранное</string>
-    <string name="toShortList">В шортлист</string>
+    <string name="toShortList">В избранное</string>
     <string name="average_check">Средний чек</string>
     <string name="time_of_work">Время работы:</string>
     <string name="sum_up">Оценить</string>
@@ -18,5 +18,7 @@
     <string name="preferences">PREFERENCES</string>
     <string name="error_message">Ошибка!!!</string>
     <string name="title_activity_restaurant_map">RestaurantMapActivity</string>
-    <string name="fromShortList">Из шортлиста</string>
+    <string name="fromShortList">Из избранного</string>
+    <string name="call">Позвонить</string>
+    <string name="cancel">Отменить</string>
 </resources>

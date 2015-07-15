@@ -109,7 +109,9 @@
                         android:layout_alignLeft="@+id/tvRestaurantName"
                         android:layout_alignStart="@+id/tvRestaurantName"
                         android:layout_toLeftOf="@+id/btnAddToShortlist"
-                        android:layout_toStartOf="@+id/btnAddToShortlist"/>
+                        android:layout_toStartOf="@+id/btnAddToShortlist"
+                        android:password="false"
+                        android:paddingBottom="10dp"/>
             </RelativeLayout>
 
             <RelativeLayout
