@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId "biz.aejis.gourmet.app"
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -54,4 +54,6 @@ dependencies {
     compile 'com.daimajia.slider:library:1.1.5@aar'
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
+    compile 'com.baoyz.swipemenulistview:library:1.1.0'
+    compile 'me.grantland:autofittextview:0.2.+'
 }

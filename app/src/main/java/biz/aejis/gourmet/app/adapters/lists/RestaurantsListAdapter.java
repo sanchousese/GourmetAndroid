@@ -15,6 +15,7 @@ import biz.aejis.gourmet.app.activities.RestaurantInfoActivity;
 import biz.aejis.gourmet.app.api.ApiClient;
 import biz.aejis.gourmet.app.helpers.transformations.RoundedTransformation;
 import biz.aejis.gourmet.app.listeners.RestaurantItemClickListener;
+import biz.aejis.gourmet.app.managers.DatabaseManager;
 import biz.aejis.gourmet.app.models.Restaurant;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,7 +29,11 @@ import java.util.List;
  */
 public class RestaurantsListAdapter extends BaseAdapter {
 
+    public enum DataSource { DATABASE, WEB }
+
     private static final String TAG = "RestaurantListAdapter";
+    public static final int IN_DATABASE = 1;
+    public static final int NOT_IN_DATABASE = 0;
 
     private Context context;
 
@@ -37,9 +42,13 @@ public class RestaurantsListAdapter extends BaseAdapter {
     private final static int ROUND_RADIUS = 10;
     private final static int ROUND_MARGIN = 0;
 
-    public RestaurantsListAdapter(Context context, List<Restaurant> restaurants) {
+    private DataSource dataSource;
+
+    public RestaurantsListAdapter(Context context,
+                                  List<Restaurant> restaurants, DataSource dataSource) {
         this.context = context;
         this.restaurants = restaurants;
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -88,14 +97,30 @@ public class RestaurantsListAdapter extends BaseAdapter {
             loadCover(holder, currRestaurant.getPhotos().get(0).getThumb());
         }
 
-        view.setOnClickListener(new RestaurantItemClickListener(currRestaurant, context));
+        holder.restaurantImage.setOnClickListener(new RestaurantItemClickListener(currRestaurant, context));
         return view;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return DatabaseManager.getInstance().isRestaurantInDB((Restaurant) getItem(position)) ?
+                IN_DATABASE : NOT_IN_DATABASE;
     }
 
     @Override
     public void notifyDataSetChanged() {
         restaurants.clear();
-        restaurants.addAll(GourmetApplication.getInstance().getLatestResponse().getRestaurants());
+
+        List<Restaurant> restaurantsList =
+                dataSource == DataSource.WEB ?
+                GourmetApplication.getInstance().getLatestResponse().getRestaurants() :
+                DatabaseManager.getInstance().getAllRestaurants();
+        restaurants.addAll(restaurantsList);
         super.notifyDataSetChanged();
     }
 

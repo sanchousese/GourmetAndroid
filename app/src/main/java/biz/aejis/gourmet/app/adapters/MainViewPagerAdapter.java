@@ -58,7 +58,9 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter implements V
 
     @Override
     public void updateList() {
-        restaurantsListPageFragment.updateList();
+        if (restaurantsListPageFragment != null) {
+            restaurantsListPageFragment.updateList();
+        }
     }
 
     @Override

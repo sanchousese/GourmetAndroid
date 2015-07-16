@@ -9,6 +9,7 @@ import android.widget.TextView;
 import biz.aejis.gourmet.app.GourmetApplication;
 import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.adapters.MainViewPagerAdapter;
+import biz.aejis.gourmet.app.managers.DatabaseManager;
 import biz.aejis.gourmet.app.presenters.MainPresenter;
 import biz.aejis.gourmet.app.views.MapView;
 import butterknife.ButterKnife;
@@ -38,6 +39,8 @@ public class MainActivity extends BaseActivity implements MaterialTabListener, M
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
+
+        DatabaseManager.init(this);
 
         tabHost = (MaterialTabHost) this.findViewById(R.id.tabHost);
         pager = (ViewPager) this.findViewById(R.id.pager);

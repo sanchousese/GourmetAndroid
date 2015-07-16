@@ -164,19 +164,13 @@ public class RestaurantInfoActivity extends BaseActivity {
         String phoneNumber = "+" + restaurant.getPhone().replaceAll("[^\\d]", "");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
         builder.setMessage(restaurant.getPhone())
                 .setTitle(R.string.book_the_table);
-
         builder.setPositiveButton(R.string.call, (dialog, which) -> {
             startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber)));
         });
-
         builder.setNegativeButton(R.string.cancel, null);
-
         builder.create().show();
-
-
     }
 
     @OnClick(R.id.btnFavoriteDishes)

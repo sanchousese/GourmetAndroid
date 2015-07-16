@@ -1,48 +1,27 @@
 package biz.aejis.gourmet.app.fragments;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import biz.aejis.gourmet.app.GourmetApplication;
-import biz.aejis.gourmet.app.R;
 import biz.aejis.gourmet.app.adapters.lists.RestaurantsListAdapter;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+import biz.aejis.gourmet.app.adapters.lists.RestaurantsListAdapter.DataSource;
+import biz.aejis.gourmet.app.fragments.bases.RestaurantsListFragmentBase;
 
 /**
  * Created by Sutula on 29.06.15.
  */
-public class RestaurantsListPageFragment extends Fragment {
-
+public class RestaurantsListPageFragment extends RestaurantsListFragmentBase {
     private static final String TAG = "RestaurantsListFragment";
 
-    @InjectView(R.id.restaurantList)
-    ListView restaurantList;
-
-    private BaseAdapter adapter;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_restaurants_list, container, false);
-        ButterKnife.inject(this, view);
-
+    public void onStart() {
         adapter = new RestaurantsListAdapter(
                 getActivity(),
                 GourmetApplication
                         .getInstance()
                         .getLatestResponse()
-                        .getRestaurants()
+                        .getRestaurants(),
+                DataSource.WEB
         );
         restaurantList.setAdapter(adapter);
-
-        return view;
-    }
-
-    public void updateList() {
-        adapter.notifyDataSetChanged();
+        super.onStart();
     }
 }
