@@ -70,13 +70,15 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter implements V
 
     @Override
     public void setProgressBarVisible() {
-        if(mapPageFragment != null) {
+        if (mapPageFragment != null) {
             mapPageFragment.setProgressBarVisible();
         }
     }
 
     @Override
     public void setProgressBarGone() {
-        mapPageFragment.setProgressBarGone();
+        if (mapPageFragment != null) {
+            mapPageFragment.setProgressBarGone();
+        }
     }
 }

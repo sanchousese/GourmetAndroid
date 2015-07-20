@@ -25,6 +25,7 @@ public class ListSwipeMenuCreator implements SwipeMenuCreator {
         swipeMenu.addMenuItem(createMenuItem(R.string.open));
         swipeMenu.addMenuItem(createMenuItem(R.string.call));
 
+        // There are two types of items: in shortlist and not in shortlist
         switch (swipeMenu.getViewType()) {
             case RestaurantsListAdapter.IN_DATABASE:
                 swipeMenu.addMenuItem(createMenuItem(R.string.fromShortList));
@@ -39,9 +40,9 @@ public class ListSwipeMenuCreator implements SwipeMenuCreator {
 
         SwipeMenuItem menuItem = new SwipeMenuItem(context);
         menuItem.setBackground(R.color.red);
-        menuItem.setWidth(100);
+        menuItem.setWidth(110);
         menuItem.setTitle(context.getResources().getString(titleRes));
-        menuItem.setTitleSize(10);
+        menuItem.setTitleSize(8);
         menuItem.setTitleColor(context.getResources().getColor(R.color.sand));
 
         return menuItem;
