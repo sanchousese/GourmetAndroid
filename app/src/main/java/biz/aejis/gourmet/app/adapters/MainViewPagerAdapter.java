@@ -72,6 +72,8 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter implements V
     public void setProgressBarVisible() {
         if (mapPageFragment != null) {
             mapPageFragment.setProgressBarVisible();
+        } else {
+            GourmetApplication.getInstance().restartApp();
         }
     }
 
@@ -79,6 +81,8 @@ public class MainViewPagerAdapter extends FragmentStatePagerAdapter implements V
     public void setProgressBarGone() {
         if (mapPageFragment != null) {
             mapPageFragment.setProgressBarGone();
+        } else {
+            GourmetApplication.getInstance().restartApp();
         }
     }
 }

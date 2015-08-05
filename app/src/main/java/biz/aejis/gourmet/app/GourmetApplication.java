@@ -59,4 +59,11 @@ public class GourmetApplication extends Application {
                 .getRestaurantByName(name)
                 .getId();
     }
+
+    public void restartApp() {
+        Intent intent = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage(getBaseContext().getPackageName());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 }
